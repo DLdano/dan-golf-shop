@@ -1,0 +1,7 @@
+<h2>Your Cart</h2>
+<p *ngIf="cart.length === 0">Your cart is empty.</p>
+<div *ngIf="cart.length > 0">
+    <ul>
+        <li *ngFor="let item of cart">{{ item.name }} - {{ item.quantity }}</li>
+    </ul>
+</div>
