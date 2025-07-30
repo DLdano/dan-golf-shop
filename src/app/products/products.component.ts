@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { ProductCardComponent } from '../product-card/product-card.component';
+import { Product } from './product.model';
+import { ProductService } from './product-service';
 
 @Component({
   selector: 'app-products',
@@ -8,10 +10,15 @@ import { ProductCardComponent } from '../product-card/product-card.component';
   imports: [NgFor, ProductCardComponent],
   templateUrl: './products.component.html',
 })
-export class ProductsComponent {
-  products = [
-    { name: 'Golf Club Set', description: 'Complete set for beginners', price: 299 },
-    { name: 'Pro Golf Balls (12-pack)', description: 'High-performance balls', price: 49 },
-    { name: 'Golf Glove', description: 'Comfortable and durable', price: 19 },
-  ];
+export class ProductsComponent implements OnInit {
+  products: Product[] = [];
+
+  constructor(private productService: ProductService) {}
+
+  ngOnInit(): void {
+    this.productService.getProducts().subscribe({
+      next: (products) => (this.products = products),
+      error: (err) => console.error(err),
+    });
+  }
 }

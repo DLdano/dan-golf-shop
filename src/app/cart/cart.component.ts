@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
-import { IProduct } from '../products/product.model';
+import { Product } from '../products/product.model';
 
 @Component({
   selector: 'app-cart',
@@ -10,5 +10,5 @@ import { IProduct } from '../products/product.model';
 })
 
 export class CartComponent {
-  cart: IProduct[] = [];
+  cart: Product[] = [];
 }
