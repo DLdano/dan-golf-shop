@@ -1,0 +1,54 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #216c2a;
+  padding: 0 32px;
+  height: 64px;
+  box-shadow: 0 2px 8px rgba(33,108,42,0.08);
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.navbar-logo img {
+  height: 40px;
+  width: 40px;
+  object-fit: contain;
+}
+
+.navbar-title {
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 0; /* Remove gap to control spacing with margin */
+}
+
+.navbar-links a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  padding: 8px 18px; /* Increase horizontal padding for better spacing */
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
+  margin-left: 8px; /* Add left margin for spacing between links */
+}
+
+.navbar-links a:first-child {
+  margin-left: 0; /* No margin before the first link */
+}
+
+.navbar-links a.active,
+.navbar-links a:hover {
+  background: #fff;
+  color: #216c2a;
+}

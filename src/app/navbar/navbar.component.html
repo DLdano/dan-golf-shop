@@ -1,5 +1,14 @@
 <nav class="navbar">
-    <a routerLink="/">Home</a>
-    <a routerLink="/products">Products</a>
-    <a routerLink="/cart">Cart</a>
+  <div class="navbar-logo">
+    <a routerLink="/">
+      <img src="assets/images/logo.png" alt="Dan's Golf Shop Logo" height="40">
+    </a>
+    <span class="navbar-title">Dan's Golf Shop</span>
+  </div>
+  <div class="navbar-links">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+    <a routerLink="/products" routerLinkActive="active">Products</a>
+    <a routerLink="/cart" routerLinkActive="active">Cart</a>
+    <a routerLink="/signin" routerLinkActive="active">Sign In</a>
+  </div>
 </nav>

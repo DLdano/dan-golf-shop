@@ -1,7 +1,34 @@
 <h2>Your Cart</h2>
 <p *ngIf="cart.length === 0">Your cart is empty.</p>
 <div *ngIf="cart.length > 0">
-    <ul>
-        <li *ngFor="let item of cart">{{ item.name }} - {{ item.quantity }}</li>
-    </ul>
+  <table class="cart-table">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Qty</th>
+        <th>Price</th>
+        <th>Subtotal</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of cart">
+        <td>{{ item.name }}</td>
+        <td>
+          <button (click)="decreaseQty(item)">-</button>
+          {{ item.quantity }}
+          <button (click)="increaseQty(item)">+</button>
+        </td>
+        <td>{{ item.price | currency }}</td>
+        <td>{{ item.price * item.quantity | currency }}</td>
+        <td>
+          <button (click)="removeItem(item)">Remove</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="cart-summary">
+    <strong>Total: {{ getTotal() | currency }}</strong>
+    <button (click)="checkout()">Checkout</button>
+  </div>
 </div>

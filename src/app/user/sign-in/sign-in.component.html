@@ -1,0 +1,12 @@
+<div *ngIf="!auth.isLoggedIn()">
+      <form (ngSubmit)="onSignIn()">
+        <input [(ngModel)]="username" name="username" placeholder="Username" required>
+        <input [(ngModel)]="password" name="password" type="password" placeholder="Password" required>
+        <button type="submit">Sign In</button>
+      </form>
+      <div *ngIf="error">{{ error }}</div>
+    </div>
+    <div *ngIf="auth.isLoggedIn()">
+      <p>Welcome, {{ username }}!</p>
+      <button (click)="onSignOut()">Sign Out</button>
+    </div>
