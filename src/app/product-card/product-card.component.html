@@ -2,5 +2,10 @@
     <h3>{{ product.name }}</h3>
     <p>{{ product.description }}</p>
     <p>${{ product.price }}</p>
-    <button>Add to Cart</button>
+    <button (click)="addToCart()" [disabled]="isAddedToCart" [ngClass]="{'added': isAddedToCart}">
+        <ng-container *ngIf="isAddedToCart; else addToCartText">
+            <span class="checkmark">&#10003;</span> Added to Cart
+        </ng-container>
+        <ng-template #addToCartText>Add to Cart</ng-template>
+    </button>
 </div>

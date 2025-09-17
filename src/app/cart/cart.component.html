@@ -1,34 +1,11 @@
-<h2>Your Cart</h2>
-<p *ngIf="cart.length === 0">Your cart is empty.</p>
-<div *ngIf="cart.length > 0">
-  <table class="cart-table">
-    <thead>
-      <tr>
-        <th>Product</th>
-        <th>Qty</th>
-        <th>Price</th>
-        <th>Subtotal</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of cart">
-        <td>{{ item.name }}</td>
-        <td>
-          <button (click)="decreaseQty(item)">-</button>
-          {{ item.quantity }}
-          <button (click)="increaseQty(item)">+</button>
-        </td>
-        <td>{{ item.price | currency }}</td>
-        <td>{{ item.price * item.quantity | currency }}</td>
-        <td>
-          <button (click)="removeItem(item)">Remove</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="cart-summary">
-    <strong>Total: {{ getTotal() | currency }}</strong>
-    <button (click)="checkout()">Checkout</button>
-  </div>
+<div class="cart-container">
+  <h2>Your Cart</h2>
+  <div *ngIf="cart.length === 0"> Your Cart is Empty.</div>
+   <ul>
+     <li *ngFor="let item of cart">{{ item.name }} - {{ item.price | currency: 'GBP' }}
+        <button (click)="removeFromCart(item.id)">Remove</button>
+     </li>
+   </ul>
+   <div *ngIf="cart.length > 0" class="cart-total">
+    <strong>Total: {{ getTotal() | currency: 'GBP' }}</strong>
 </div>

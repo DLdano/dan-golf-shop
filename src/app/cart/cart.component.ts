@@ -1,10 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { NgIf, NgFor, CommonModule } from '@angular/common';
+import { CartItem } from './cartItem.model';
 import { Product } from '../products/product.model';
+import { CartService } from './cart.service';
 
-interface CartItem extends Product {
-  quantity: number;
-}
 
 @Component({
   selector: 'app-cart',
@@ -13,33 +12,20 @@ interface CartItem extends Product {
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss'] 
 })
-export class CartComponent {
-  cart: CartItem[] = [
-    // Example items for demonstration; replace with real cart logic or service
-    // { id: 1, name: 'Pro Series Driver', price: 299.99, quantity: 1 },
-    // { id: 2, name: 'Precision Putter', price: 149.99, quantity: 2 }
-  ];
+export class CartComponent implements OnInit {
+  cart: Product[] = [];
+  cartService = inject(CartService);
 
-  increaseQty(item: CartItem) {
-    item.quantity++;
+  ngOnInit() {
+    this.cart = this.cartService.getCart();
   }
 
-  decreaseQty(item: CartItem) {
-    if (item.quantity > 1) {
-      item.quantity--;
-    }
-  }
-
-  removeItem(item: CartItem) {
-    this.cart = this.cart.filter(i => i !== item);
+  removeFromCart(productId: number) {
+    this.cartService.removeFromCart(productId);
+    this.cart = this.cartService.getCart();
   }
 
   getTotal(): number {
-    return this.cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  }
-
-  checkout() {
-    // Implement checkout logic here
-    alert('Checkout not implemented.');
+    return this.cart.reduce((sum, item) => sum + item.price, 0);
   }
 }
