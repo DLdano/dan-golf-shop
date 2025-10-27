@@ -1,23 +1,69 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { BehaviorSubject, tap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private loggedIn = false;
+  private http = inject(HttpClient);
 
-  signIn(username: string, password: string): boolean {
-    // Replace with real authentication logic
-    if (username === 'user' && password === 'pass') {
-      this.loggedIn = true;
-      return true;
-    }
-    return false;
+  private loggedIn$ = new BehaviorSubject<boolean>(false);
+  private role$ = new BehaviorSubject<string | null>(null);
+
+  signIn(Email: string, Password: string) {
+    return this.http.post<{ token: string }>('http://localhost:5208/login', { Email, Password })
+      .pipe(
+        tap(response => {
+          localStorage.setItem('jwt', response.token);
+          this.loggedIn$.next(true);
+          this.role$.next(this.extractRole(response.token));
+        })
+      );
   }
 
-  signOut(): void {
-    this.loggedIn = false;
+  private extractRole(token: string): string | null {
+    try {
+      const payloadPart = token.split('.')[1];
+      const json = JSON.parse(atob(payloadPart.replace(/-/g, '+').replace(/_/g, '/')));
+      const claim = json.role ||
+        json.roles ||
+        json['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+      return Array.isArray(claim) ? claim[0] : claim || null;
+    } catch {
+      return null;
+    }
+  }
+
+  loadFromStorage() {
+    const token = localStorage.getItem('jwt');
+    if (token) {
+      this.loggedIn$.next(true);
+      this.role$.next(this.extractRole(token));
+    }
+  }
+
+  hasRole(role: string): boolean {
+    return this.role$.value === role;
   }
 
   isLoggedIn(): boolean {
-    return this.loggedIn;
+    return this.loggedIn$.value;
+  }
+
+  getRole(): string | null {
+    return this.role$.value;
+  }
+
+  roleChanges() {
+    return this.role$.asObservable();
+  }
+
+  loggedInChanges() {
+    return this.loggedIn$.asObservable();
+  }
+
+  signOut(): void {
+    localStorage.removeItem('jwt');
+    this.loggedIn$.next(false);
+    this.role$.next(null);
   }
 }

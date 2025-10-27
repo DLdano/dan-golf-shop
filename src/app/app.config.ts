@@ -10,5 +10,5 @@ export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(routes),
     provideHttpClient(),
-  importProvidersFrom(InMemoryWebApiModule.forRoot(AppData, { delay: 1000}))],
+  importProvidersFrom(InMemoryWebApiModule.forRoot(AppData, { passThruUnknownUrl: true, delay: 1000}))],
 };

@@ -9,6 +9,8 @@
     <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
     <a routerLink="/products" routerLinkActive="active">Products</a>
     <a routerLink="/cart" routerLinkActive="active">Cart</a>
-    <a routerLink="/signin" routerLinkActive="active">Sign In</a>
+    <a routerLink="/signin" routerLinkActive="active" *ngIf="!(loggedIn$ | async)">Sign In</a>
+    <a routerLink="/admin" routerLinkActive="active" *ngIf="(role$ | async) === 'admin'">Admin</a>
+    <button class="signout-btn" *ngIf="(loggedIn$ | async)" (click)="onSignOut()">Sign Out</button>
   </div>
 </nav>

@@ -52,3 +52,44 @@
   background: #fff;
   color: #216c2a;
 }
+
+// ...existing code...
+.navbar-links {
+  display: flex;
+  gap: 0;
+}
+
+.navbar-links a,
+.navbar-links .signout-btn {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  padding: 8px 18px;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
+  margin-left: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  font-family: inherit;
+}
+
+.navbar-links a:first-child,
+.navbar-links .signout-btn:first-child {
+  margin-left: 0;
+}
+
+.navbar-links a.active,
+.navbar-links a:hover,
+.navbar-links .signout-btn:hover {
+  background: #fff;
+  color: #216c2a;
+}
+
+.navbar-links .signout-btn:focus-visible,
+.navbar-links a:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
