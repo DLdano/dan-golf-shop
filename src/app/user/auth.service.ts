@@ -66,4 +66,31 @@ export class AuthService {
     this.loggedIn$.next(false);
     this.role$.next(null);
   }
+
+  private decodePayload(token: string): any | null {
+    try {
+      const payloadPart = token.split('.')[1];
+      const json = JSON.parse(atob(payloadPart.replace(/-/g, '+').replace(/_/g, '/')));
+      return json;
+    } catch {
+      return null;
+    }
+  }
+
+  getUserClaims(): { firstName?: string; lastName?: string; email?: string; role?: string | null } {
+    const token = localStorage.getItem('jwt');
+    if (!token) return {};
+    const payload = this.decodePayload(token);
+    if (!payload) return {};
+    const roleClaim = payload.role ||
+      payload.roles ||
+      payload['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+    const role = Array.isArray(roleClaim) ? roleClaim[0] : roleClaim || null;
+    return {
+      firstName: payload.firstName || payload.given_name || payload.givenName,
+      lastName: payload.lastName || payload.family_name || payload.familyName,
+      email: payload.email || payload.upn || payload.sub,
+      role
+    };
+  }
 }
