@@ -1,6 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { NgIf, NgFor, CommonModule } from '@angular/common';
-import { CartItem } from './cartItem.model';
 import { Product } from '../products/product.model';
 import { CartService } from './cart.service';
 
