@@ -9,7 +9,7 @@ import { Product } from "./product.model";
 })
 
 export class ProductService {
-    private productsUrl = 'api/products';
+    private productsUrl = 'https://localhost:7275/api/products';
     private errorService = inject(HttpErrorService);
     private http = inject(HttpClient);
 

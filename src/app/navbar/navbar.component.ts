@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../user/auth.service';
 import { CommonModule } from '@angular/common';
 
@@ -16,7 +16,7 @@ export class NavbarComponent {
   loggedIn$: ReturnType<AuthService['loggedInChanges']>;
   role$: ReturnType<AuthService['roleChanges']>;
 
-  constructor(public authService: AuthService) {
+  constructor(public authService: AuthService, private router: Router) {
     this.authService.loadFromStorage();
     this.loggedIn$ = this.authService.loggedInChanges();
     this.role$ = this.authService.roleChanges();
@@ -24,5 +24,6 @@ export class NavbarComponent {
 
   onSignOut() {
     this.authService.signOut();
+    this.router.navigate(['/signedout']);
   }
 }

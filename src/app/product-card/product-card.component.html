@@ -1,7 +1,7 @@
 <div class="product-card">
     <h3>{{ product.name }}</h3>
     <p>{{ product.description }}</p>
-    <p>${{ product.price }}</p>
+    <p>{{ product.price | currency: 'GBP' }}</p>
     <button (click)="addToCart()" [disabled]="isAddedToCart" [ngClass]="{'added': isAddedToCart}">
         <ng-container *ngIf="isAddedToCart; else addToCartText">
             <span class="checkmark">&#10003;</span> Added to Cart
