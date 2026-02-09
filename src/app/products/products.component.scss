@@ -2,23 +2,70 @@ h2 {
   margin-bottom: 2rem;
   font-size: 2rem;
   color: #333;
+  text-align: center;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 12px;
+  margin: 0 auto 2.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 800px;
+  padding: 0 1rem;
+}
+
+.filter-btn {
+  padding: 0.75rem 1.5rem;
+  border: 2px solid #216c2a;
+  background-color: white;
+  color: #216c2a;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    background-color: #f0f9f1;
+    border-color: #1a5621;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  &.active {
+    background-color: #28a745;
+    color: white;
+    border-color: #28a745;
+
+    &:hover {
+      background-color: #218838;
+      border-color: #218838;
+    }
+  }
 }
 
 .product-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 2rem;
   padding: 1rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  justify-content: center;
+  
+  app-product-card {
+    width: 280px;
+    flex-shrink: 0;
+  }
   
   @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-  }
-  
-  @media (min-width: 769px) and (max-width: 1024px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  @media (min-width: 1025px) {
-    grid-template-columns: repeat(3, 1fr);
+    padding: 1rem 0.5rem;
+    
+    app-product-card {
+      width: 100%;
+      max-width: 400px;
+    }
   }
 }
